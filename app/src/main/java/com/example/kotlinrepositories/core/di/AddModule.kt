@@ -4,6 +4,7 @@ val addModule = listOf(
     clientModule,
     dataModule,
     repositoryModule,
-    useCaseModule
+    useCaseModule,
+    presentationModule
 )
 

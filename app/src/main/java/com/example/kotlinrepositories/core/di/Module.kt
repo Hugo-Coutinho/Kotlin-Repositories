@@ -1,6 +1,8 @@
 package com.example.kotlinrepositories.core.di
 
 import com.example.kotlinrepositories.core.util.constant.Constant
+import com.example.kotlinrepositories.core.util.fragmentManager.FragmentNavigationManager
+import com.example.kotlinrepositories.core.util.fragmentManager.FragmentNavigationManagerImpl
 import com.example.kotlinrepositories.home.data.remote.IGithubApi
 import com.example.kotlinrepositories.home.data.remote.KotlinRepositoriesRemoteDataSource
 import com.example.kotlinrepositories.home.data.remote.KotlinRepositoriesRemoteDataSourceImpl
@@ -45,6 +47,10 @@ val repositoryModule = module {
 
 val useCaseModule = module {
     factory<HomeUseCase> { HomeUseCaseImpl(repository = get()) }
+}
+
+val presentationModule = module {
+    factory<FragmentNavigationManager> { FragmentNavigationManagerImpl() }
 }
 
 
