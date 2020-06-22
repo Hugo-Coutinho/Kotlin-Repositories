@@ -2,12 +2,12 @@ package com.example.kotlinrepositories.home.presentation.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.kotlinrepositories.home.domain.entity.HomeEntity
+import com.example.kotlinrepositories.home.domain.entity.HomeRepositoryEntity
 import com.example.kotlinrepositories.home.domain.useCase.HomeUseCase
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class HomeViewModel(private val useCase: HomeUseCase) : ViewModel() {
-    var items: MutableLiveData<List<HomeEntity>> = MutableLiveData()
+    var items: MutableLiveData<List<HomeRepositoryEntity>> = MutableLiveData()
     var page: Int = 1
 
     init {

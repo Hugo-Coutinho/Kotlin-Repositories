@@ -3,18 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/success_fragment_typing"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="texto embarcado no xml"/>
-
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/success_fragment_Click"
-        android:layout_marginTop="50mm"
-        android:text="success"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"/>
 
 </LinearLayout>

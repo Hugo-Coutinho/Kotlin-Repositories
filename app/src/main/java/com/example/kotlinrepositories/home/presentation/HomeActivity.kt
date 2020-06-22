@@ -17,10 +17,6 @@ class HomeActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        val fm: FragmentManager = supportFragmentManager
-//        val ft: FragmentTransaction = fm.beginTransaction()
-//        ft.add(R.id.home_fragment_container, HomeListingRepositoriesFragment())
-//        ft.commit()
         fragmentManager.add(this, R.id.home_fragment_container, HomeListingRepositoriesFragment())
     }
 }
