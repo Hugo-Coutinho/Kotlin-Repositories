@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.kotlinrepositories.databinding.FragmentHomeErrorBinding
 
-class HomeErrorFragment: Fragment() {
+class HomeErrorFragment(private val message: String): Fragment() {
 
     private var binding: FragmentHomeErrorBinding? = null
 
@@ -17,6 +17,7 @@ class HomeErrorFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         this.binding = FragmentHomeErrorBinding.inflate(layoutInflater)
+        this.binding?.tvErrorMessage?.text = message
         return binding?.root
     }
 
