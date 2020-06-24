@@ -42,7 +42,7 @@ class HomeActivity: AppCompatActivity() {
     private fun observeHomeState() {
         this.viewModel.currentState.observe(this, Observer {
             if (it is HomeSuccessState) {
-                fragmentManager.replace(this, R.id.home_fragment_container, HomeListingRepositoriesFragment(it.items))
+                fragmentManager.replace(this, R.id.home_fragment_container, HomeListingRepositoriesFragment(this.viewModel, it.items))
             } else if (it is HomeErrorState) {
                 fragmentManager.replace(this, R.id.home_fragment_container, HomeErrorFragment(it.message))
             }

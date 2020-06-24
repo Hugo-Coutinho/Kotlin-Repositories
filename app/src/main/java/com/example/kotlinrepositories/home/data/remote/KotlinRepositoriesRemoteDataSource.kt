@@ -14,11 +14,11 @@ interface IGithubApi {
 }
 
 interface KotlinRepositoriesRemoteDataSource {
-    fun getKotlinRepositories(page: Int): Observable<List<KotlinRepositoriesModel>>
+    fun getKotlinRepositories(page: Int): Observable<ArrayList<KotlinRepositoriesModel>>
 }
 
 class KotlinRepositoriesRemoteDataSourceImpl(private val client: IGithubApi): KotlinRepositoriesRemoteDataSource {
-    override fun getKotlinRepositories(page: Int): Observable<List<KotlinRepositoriesModel>> {
+    override fun getKotlinRepositories(page: Int): Observable<ArrayList<KotlinRepositoriesModel>> {
         Logger.w("doing request to api")
     return client.findKotlinRepositories(page)
         .flatMap { item -> Observable.just(item.items) }

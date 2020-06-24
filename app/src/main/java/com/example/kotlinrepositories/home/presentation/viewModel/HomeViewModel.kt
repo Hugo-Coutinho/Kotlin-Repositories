@@ -11,27 +11,46 @@ import com.example.kotlinrepositories.home.presentation.viewModel.state.HomeErro
 import com.example.kotlinrepositories.home.presentation.viewModel.state.HomeLoadingState
 import com.example.kotlinrepositories.home.presentation.viewModel.state.HomeState
 import com.example.kotlinrepositories.home.presentation.viewModel.state.HomeSuccessState
+import com.orhanobut.logger.Logger
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class HomeViewModel(private val useCase: HomeUseCase) : ViewModel() {
     var currentState: MutableLiveData<HomeState> = MutableLiveData()
-    var page: Int = 1
+    var vmItems: MutableLiveData<List<HomeRepositoryEntity>> = MutableLiveData()
 
     init {
+        Logger.i("initializing viewModel with loading state")
         this.currentState.value = HomeLoadingState()
+        this.didInitGetKotlinRepositories()
+    }
+
+    private fun didInitGetKotlinRepositories() {
+        Logger.i("requesting repositories by page 1")
+        useCase.getKotlinRepositories(1)
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.single())
+            .subscribe({
+                Logger.i("success parse for entity with ${it.count()} repositories")
+                this.currentState.postValue(HomeSuccessState(it))
+            }, {
+                Logger.wtf("request fails ${it.localizedMessage}")
+                this.currentState.postValue(HomeErrorState(Constant.HomeErrorMessage))
+            })
+
+    }
+
+    fun fetchKotlinRepositoriesByPage(page: Int) {
+        Logger.i("requesting repositories by page $page")
         useCase.getKotlinRepositories(page)
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.single())
             .subscribe({
-                this.currentState.postValue(HomeSuccessState(it))
+                Logger.i("success parse for entity with ${it.count()} repositories")
+                this.vmItems.postValue(it)
             }, {
-                this.currentState.postValue(HomeErrorState(Constant.HomeErrorMessage))
+                Logger.wtf("request fails ${it.localizedMessage}")
             })
-    }
 
-    private fun mockEntity(): HomeRepositoryEntity {
-        val owner = Owner("android","https://avatars3.githubusercontent.com/u/32689599?v=4")
-        return HomeRepositoryEntity("architecture-samples",false, owner.login, "A collection of samples to discuss and showcase different architectural tools and patterns for Android apps.",owner.avatar_url,"https://github.com/google/flexbox-layout", 36642,10175)
     }
 
     class ViewModelFactory(private var useCase: HomeUseCase): ViewModelProvider.Factory {

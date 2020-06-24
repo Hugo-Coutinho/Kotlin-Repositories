@@ -83,16 +83,12 @@
         app:layout_constraintTop_toBottomOf="@id/tv_repository_description" />
 
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:layout_marginTop="32dp"
         android:layout_marginRight="32dp"
-        android:adjustViewBounds="true"
-        android:maxWidth="64dp"
-        android:maxHeight="64dp"
-        android:src="@drawable/user_default"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
