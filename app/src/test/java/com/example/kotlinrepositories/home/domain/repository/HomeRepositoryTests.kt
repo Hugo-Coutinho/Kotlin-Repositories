@@ -2,8 +2,6 @@ package com.example.kotlinrepositories.home.domain.repository
 
 import com.example.kotlinrepositories.home.data.MockHomeRemoteDataSource
 import com.example.kotlinrepositories.home.data.remote.KotlinRepositoriesRemoteDataSource
-import com.orhanobut.logger.AndroidLogAdapter
-import com.orhanobut.logger.Logger
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
@@ -34,7 +32,7 @@ class HomeRepositoryTests {
     }
 
     @Test
-    fun getKotlinRepositoriesFromApi_ShouldAssertHomeEntityItems() {
+    fun getKotlinRepositoriesFromApi_ShouldAssertOneItemCount() {
 
         // GIVEN
         var resultEntityCount: Int = 0

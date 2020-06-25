@@ -6,7 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinrepositories.R
-import com.example.kotlinrepositories.RepositoryPage.RepositoryPageActivity
+import com.example.kotlinrepositories.repositoryPage.RepositoryPageActivity
 import com.example.kotlinrepositories.home.domain.entity.HomeRepositoryEntity
 import com.orhanobut.logger.Logger
 import com.squareup.picasso.Callback

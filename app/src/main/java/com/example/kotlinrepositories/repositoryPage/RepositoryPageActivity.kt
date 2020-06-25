@@ -1,9 +1,8 @@
-package com.example.kotlinrepositories.RepositoryPage
+package com.example.kotlinrepositories.repositoryPage
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.AlarmClock
-import android.provider.Settings
 import android.webkit.WebView
 import com.example.kotlinrepositories.R
 

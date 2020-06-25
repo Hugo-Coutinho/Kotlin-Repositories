@@ -1,7 +1,6 @@
-package com.example.kotlinrepositories.home.data
+package com.example.kotlinrepositories.pullRequest.data
 
 import com.example.kotlinrepositories.core.di.provideRetrofit
-import com.example.kotlinrepositories.pullRequest.data.MockPullRequestRemoteDataSource
 import com.example.kotlinrepositories.pullRequestPage.data.remote.IGithubPullsApi
 import com.example.kotlinrepositories.pullRequestPage.data.remote.PullRequestRemoteDataSource
 import com.example.kotlinrepositories.pullRequestPage.data.remote.PullRequestRemoteDataSourceImpl
@@ -12,12 +11,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
-
 @RunWith(MockitoJUnitRunner::class)
-class HomeRemoteDataSourceTests {
+class PullRequestRemoteDataSourceTests {
 
     @Mock
     private lateinit var client: IGithubPullsApi
@@ -25,7 +22,7 @@ class HomeRemoteDataSourceTests {
 
     @Before
     fun setUp() {
-        this.client =  Mockito.mock(provideRetrofit().create(IGithubPullsApi::class.java)::class.java)
+        this.client = Mockito.mock(provideRetrofit().create(IGithubPullsApi::class.java)::class.java)
         this.dataSource = PullRequestRemoteDataSourceImpl(this.client)
     }
 
@@ -35,15 +32,15 @@ class HomeRemoteDataSourceTests {
     }
 
     @Test
-    fun getKotlinRepositories_ShouldAssertOneItemCount() {
+    fun getPullRequests_ShouldAssertOneItemCount() {
 
         // GIVEN
         var resultMockItemscount: Int = 0
         val expectedResult = MockPullRequestRemoteDataSource.didClientResponse()
-        `when`(this.client.findPullRequest("", "")).thenReturn(expectedResult)
+        Mockito.`when`(this.client.findPullRequest("Rogerin", "KotlinRepository")).thenReturn(expectedResult)
 
         // WHEN
-        this.dataSource.getPullRequest("", "")
+        this.dataSource.getPullRequest("Rogerin", "KotlinRepository")
             .subscribe({
                 resultMockItemscount = it.count()
             }, {
@@ -53,4 +50,5 @@ class HomeRemoteDataSourceTests {
         // THEN
         Assert.assertEquals(1, resultMockItemscount)
     }
+
 }
