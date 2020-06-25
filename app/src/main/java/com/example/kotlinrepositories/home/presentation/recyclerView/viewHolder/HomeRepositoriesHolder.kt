@@ -1,17 +1,22 @@
 package com.example.kotlinrepositories.home.presentation.recyclerView.viewHolder
 
+import android.content.Intent
+import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinrepositories.R
+import com.example.kotlinrepositories.RepositoryPage.RepositoryPageActivity
 import com.example.kotlinrepositories.home.domain.entity.HomeRepositoryEntity
 import com.orhanobut.logger.Logger
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.home_repository_item.view.*
 
-//1
+
 class HomeRepositoriesHolder(v: View): RecyclerView.ViewHolder(v), View.OnClickListener {
     private var view: View = v
+
     init {
         v.setOnClickListener(this)
     }
@@ -22,6 +27,7 @@ class HomeRepositoriesHolder(v: View): RecyclerView.ViewHolder(v), View.OnClickL
 
     fun bindRepository(item: HomeRepositoryEntity) {
         this.downloadingUserAvatar(item.avatar)
+        this.setupButtonClickListener(item.repositoryPageLink)
         view.tv_user_name.text = item.userName
         view.tv_repository_name.text = item.repositoryName
         view.tv_repository_description.text = item.repoDescription
@@ -42,5 +48,25 @@ class HomeRepositoriesHolder(v: View): RecyclerView.ViewHolder(v), View.OnClickL
                     view.iv_user.setImageResource(R.drawable.user_default)
                 }
             })
+    }
+
+    private fun setupButtonClickListener(repositoryUrl: String?) {
+            view.btn_github_webView.setOnClickListener {
+                repositoryUrl?.let {
+                    Logger.i("button clicked!! go to the webView: $repositoryUrl")
+                    view.context.startActivity(Intent(view.context, RepositoryPageActivity::class.java).apply {
+                        putExtra(EXTRA_MESSAGE, repositoryUrl)
+                    })
+                }
+                Logger.i("button clicked!! repositoryUrl it`s null. url: $repositoryUrl")
+                this.alertUserFromUnavailableUrl()
+        }
+    }
+
+    private fun alertUserFromUnavailableUrl() {
+        AlertDialog.Builder(view.context)
+            .setTitle(view.context.getString(R.string.alert_unavailable_url_title))
+            .setMessage(view.context.getString(R.string.alert_unavailable_url_body))
+            .show()
     }
 }

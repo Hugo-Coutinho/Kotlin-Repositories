@@ -1,12 +1,16 @@
 package com.example.kotlinrepositories.home.presentation
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.AlarmClock.EXTRA_MESSAGE
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.kotlinrepositories.R
+import com.example.kotlinrepositories.RepositoryPage.RepositoryPageActivity
 import com.example.kotlinrepositories.core.util.fragmentManager.FragmentNavigationManager
 import com.example.kotlinrepositories.core.view.LoadingFragment
+import com.example.kotlinrepositories.databinding.ActivityMainBinding
 import com.example.kotlinrepositories.home.domain.useCase.HomeUseCase
 import com.example.kotlinrepositories.home.presentation.view.HomeErrorFragment
 import com.example.kotlinrepositories.home.presentation.view.HomeListingRepositoriesFragment
@@ -15,13 +19,11 @@ import com.example.kotlinrepositories.home.presentation.viewModel.state.HomeErro
 import com.example.kotlinrepositories.home.presentation.viewModel.state.HomeSuccessState
 import org.koin.android.ext.android.inject
 
-
 class HomeActivity: AppCompatActivity() {
 
     private val fragmentManager: FragmentNavigationManager by inject()
     private val useCase: HomeUseCase by inject()
     private lateinit var viewModel: HomeViewModel
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

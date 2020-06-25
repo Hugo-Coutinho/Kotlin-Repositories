@@ -21,8 +21,8 @@ object MockHomeRemoteDataSource {
         return KotlinRepositoriesRemoteDataSourceImpl(this.client)
     }
 
-    fun getMockKotlinRepositories(): Observable<List<KotlinRepositoriesModel>> {
-        return Observable.just(listOf(this.mockModel()))
+    fun getMockKotlinRepositories(): Observable<ArrayList<KotlinRepositoriesModel>> {
+        return Observable.just(ArrayList<KotlinRepositoriesModel>(listOf(this.mockModel())))
     }
 
     fun didClientResponse(): Observable<Item> {
@@ -31,12 +31,12 @@ object MockHomeRemoteDataSource {
 
     private fun mockItem(): Item {
         val owner = Owner("android","https://avatars3.githubusercontent.com/u/32689599?v=4")
-        val model = KotlinRepositoriesModel("architecture-samples", false, owner, "A collection of samples to discuss and showcase different architectural tools and patterns for Android apps.","https://github.com/google/flexbox-layout",36642,10175)
-        return Item(listOf(model))
+        val model = KotlinRepositoriesModel("architecture-samples", false, owner, "A collection of samples to discuss and showcase different architectural tools and patterns for Android apps.","https://github.com/google/flexbox-webview_repository_page",36642,10175)
+        return Item(ArrayList<KotlinRepositoriesModel>(listOf(model)))
     }
 
     private fun mockModel(): KotlinRepositoriesModel {
         val owner = Owner("android","https://avatars3.githubusercontent.com/u/32689599?v=4")
-        return KotlinRepositoriesModel("architecture-samples", false, owner, "A collection of samples to discuss and showcase different architectural tools and patterns for Android apps.","https://github.com/google/flexbox-layout",36642,10175)
+        return KotlinRepositoriesModel("architecture-samples", false, owner, "A collection of samples to discuss and showcase different architectural tools and patterns for Android apps.","https://github.com/google/flexbox-webview_repository_page",36642,10175)
     }
 }
