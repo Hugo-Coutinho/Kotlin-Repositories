@@ -18,6 +18,6 @@ class HomeRepositoryImpl(private val remoteDataSource: KotlinRepositoriesRemoteD
     }
 
     private fun parseModelToEntity(model: KotlinRepositoriesModel): HomeRepositoryEntity {
-        return HomeRepositoryEntity(model.name, model.private, model.owner.login, model.description, model.owner.avatar_url, model.html_url, model.stargazers_count, model.forks_count)
+        return HomeRepositoryEntity(model.name, model.owner.login, model.description, model.owner.avatar_url, model.html_url, model.stargazers_count, model.forks_count)
     }
 }

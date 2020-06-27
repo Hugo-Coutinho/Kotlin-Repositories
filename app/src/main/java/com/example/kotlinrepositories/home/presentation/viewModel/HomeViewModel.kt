@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.kotlinrepositories.core.util.constant.Constant
-import com.example.kotlinrepositories.home.data.model.Owner
 import com.example.kotlinrepositories.home.domain.entity.HomeRepositoryEntity
 import com.example.kotlinrepositories.home.domain.useCase.HomeUseCase
 import com.example.kotlinrepositories.home.presentation.viewModel.state.HomeErrorState
@@ -36,7 +35,6 @@ class HomeViewModel(private val useCase: HomeUseCase) : ViewModel() {
                 Logger.wtf("request fails ${it.localizedMessage}")
                 this.currentState.postValue(HomeErrorState(Constant.HomeErrorMessage))
             })
-
     }
 
     fun fetchKotlinRepositoriesByPage(page: Int) {
@@ -50,7 +48,6 @@ class HomeViewModel(private val useCase: HomeUseCase) : ViewModel() {
             }, {
                 Logger.wtf("request fails ${it.localizedMessage}")
             })
-
     }
 
     class ViewModelFactory(private var useCase: HomeUseCase): ViewModelProvider.Factory {

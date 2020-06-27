@@ -4,12 +4,13 @@ import com.example.kotlinrepositories.pullRequestPage.data.model.PullModel
 import com.orhanobut.logger.Logger
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 
 interface IGithubPullsApi {
     @GET("repos/{owner}/{repo}/pulls")
-    fun findPullRequest(@Query("owner") userName: String, @Query("repo") repository: String): Observable<PullModel>
+    fun findPullRequest(@Path("owner") userName: String, @Path("repo") repository: String): Observable<PullModel>
 }
 
 interface PullRequestRemoteDataSource {

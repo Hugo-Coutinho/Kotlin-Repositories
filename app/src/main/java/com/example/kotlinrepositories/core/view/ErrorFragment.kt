@@ -1,4 +1,4 @@
-package com.example.kotlinrepositories.home.presentation.view
+package com.example.kotlinrepositories.core.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.kotlinrepositories.databinding.FragmentHomeErrorBinding
 
-class HomeErrorFragment(private val message: String): Fragment() {
+class ErrorFragment(private val message: String): Fragment() {
 
     private var binding: FragmentHomeErrorBinding? = null
 

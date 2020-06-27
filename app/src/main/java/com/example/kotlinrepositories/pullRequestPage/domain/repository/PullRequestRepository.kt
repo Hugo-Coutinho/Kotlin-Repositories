@@ -19,6 +19,6 @@ class PullRequestRepositoryImpl(private val remoteDataSource: PullRequestRemoteD
     }
 
     private fun parseModelToEntity(model: PullElement): PullEntityElement {
-        return PullEntityElement(model.user.login, model.title, model.body, model.user.avatarURL)
+        return PullEntityElement(model.user.login, model.title, model.body, model.user.avatar_url)
     }
 }

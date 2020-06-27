@@ -8,7 +8,7 @@ import com.example.kotlinrepositories.R
 import com.example.kotlinrepositories.core.util.fragmentManager.FragmentNavigationManager
 import com.example.kotlinrepositories.core.view.LoadingFragment
 import com.example.kotlinrepositories.home.domain.useCase.HomeUseCase
-import com.example.kotlinrepositories.home.presentation.view.HomeErrorFragment
+import com.example.kotlinrepositories.core.view.ErrorFragment
 import com.example.kotlinrepositories.home.presentation.view.HomeListingRepositoriesFragment
 import com.example.kotlinrepositories.home.presentation.viewModel.HomeViewModel
 import com.example.kotlinrepositories.home.presentation.viewModel.state.HomeErrorState
@@ -42,7 +42,7 @@ class HomeActivity: AppCompatActivity() {
             if (it is HomeSuccessState) {
                 fragmentManager.replace(this, R.id.home_fragment_container, HomeListingRepositoriesFragment(this.viewModel, it.items))
             } else if (it is HomeErrorState) {
-                fragmentManager.replace(this, R.id.home_fragment_container, HomeErrorFragment(it.message))
+                fragmentManager.replace(this, R.id.home_fragment_container, ErrorFragment(it.message))
             }
         })
     }

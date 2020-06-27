@@ -1,13 +1,15 @@
 package com.example.kotlinrepositories.home.presentation.recyclerView.viewHolder
 
 import android.content.Intent
-import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinrepositories.R
+import com.example.kotlinrepositories.core.util.constant.Constant.Companion.ACTION_WEB_VIEW
+import com.example.kotlinrepositories.core.util.constant.Constant.Companion.PULL_ITEM
 import com.example.kotlinrepositories.repositoryPage.RepositoryPageActivity
 import com.example.kotlinrepositories.home.domain.entity.HomeRepositoryEntity
+import com.example.kotlinrepositories.pullRequestPage.PullActivity
 import com.orhanobut.logger.Logger
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -16,16 +18,21 @@ import kotlinx.android.synthetic.main.home_repository_item.view.*
 
 class HomeRepositoriesHolder(v: View): RecyclerView.ViewHolder(v), View.OnClickListener {
     private var view: View = v
+    private lateinit var item: HomeRepositoryEntity
 
     init {
         v.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
-    Logger.d("item clicked")
+    Logger.d("item clicked: ${v.tv_repository_name.text}")
+        view.context.startActivity(Intent(view.context, PullActivity::class.java).apply {
+            putExtra(PULL_ITEM, item)
+        })
     }
 
     fun bindRepository(item: HomeRepositoryEntity) {
+        this.item = item
         this.downloadingUserAvatar(item.avatar)
         this.setupButtonClickListener(item.repositoryPageLink)
         view.tv_user_name.text = item.userName
@@ -55,7 +62,7 @@ class HomeRepositoriesHolder(v: View): RecyclerView.ViewHolder(v), View.OnClickL
                 repositoryUrl?.let {
                     Logger.i("button clicked!! go to the webView: $repositoryUrl")
                     view.context.startActivity(Intent(view.context, RepositoryPageActivity::class.java).apply {
-                        putExtra(EXTRA_MESSAGE, repositoryUrl)
+                        putExtra(ACTION_WEB_VIEW, repositoryUrl)
                     })
                 }
                 Logger.i("button clicked!! repositoryUrl it`s null. url: $repositoryUrl")

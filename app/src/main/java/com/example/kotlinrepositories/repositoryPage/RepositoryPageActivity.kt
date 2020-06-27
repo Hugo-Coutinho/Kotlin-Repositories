@@ -2,14 +2,14 @@ package com.example.kotlinrepositories.repositoryPage
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.AlarmClock
 import android.webkit.WebView
 import com.example.kotlinrepositories.R
+import com.example.kotlinrepositories.core.util.constant.Constant.Companion.ACTION_WEB_VIEW
 
 class RepositoryPageActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(setupWebViewByUrl(intent.getStringExtra(AlarmClock.EXTRA_MESSAGE)))
+        setContentView(setupWebViewByUrl(intent.getStringExtra(ACTION_WEB_VIEW)))
         this.preparingActionBar()
     }
 

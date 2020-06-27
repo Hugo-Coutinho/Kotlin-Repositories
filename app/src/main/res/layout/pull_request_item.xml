@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_pull_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="sans-serif-black"
+        android:maxLines="2"
+        android:text="namenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamename"
+        android:textColor="@color/colorBlue"
+        android:textSize="18sp"
+        app:autoSizeMaxTextSize="18sp"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeStepGranularity="100sp"
+        app:layout_constraintBottom_toTopOf="@id/tv_pull_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/tv_pull_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:maxLines="3"
+        android:text="descripiondescripiondescripiondescripiondescripiondescripiondescripiondescripiondescripiondescripiondescripiondescripiondescripiondescripiondescripiondescripiondescripiondescripiondescripiondescripiondescripion"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16dp"
+        app:layout_constraintBaseline_toBaselineOf="@id/pr_iv_user"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_pull_name" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/pr_iv_user"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="32dp"
+        app:layout_constraintStart_toStartOf="@id/tv_pull_description"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_pull_description" />
+
+    <TextView
+        android:id="@+id/pr_tv_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:text="Felipe Belmino"
+        android:textColor="@color/colorBlue"
+        android:textSize="16dp"
+        android:paddingHorizontal="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toEndOf="@id/pr_iv_user"
+        app:layout_constraintTop_toBottomOf="@id/tv_pull_description"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
