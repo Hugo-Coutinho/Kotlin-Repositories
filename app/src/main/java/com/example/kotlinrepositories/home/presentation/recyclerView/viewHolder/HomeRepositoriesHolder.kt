@@ -34,7 +34,7 @@ class HomeRepositoriesHolder(v: View): RecyclerView.ViewHolder(v), View.OnClickL
     fun bindRepository(item: HomeRepositoryEntity) {
         this.item = item
         this.downloadingUserAvatar(item.avatar)
-        this.setupButtonClickListener(item.repositoryPageLink)
+        this.setupButtonClickListener(item)
         view.tv_user_name.text = item.userName
         view.tv_repository_name.text = item.repositoryName
         view.tv_repository_description.text = item.repoDescription
@@ -57,16 +57,18 @@ class HomeRepositoriesHolder(v: View): RecyclerView.ViewHolder(v), View.OnClickL
             })
     }
 
-    private fun setupButtonClickListener(repositoryUrl: String?) {
-            view.btn_github_webView.setOnClickListener {
-                repositoryUrl?.let {
-                    Logger.i("button clicked!! go to the webView: $repositoryUrl")
-                    view.context.startActivity(Intent(view.context, RepositoryPageActivity::class.java).apply {
-                        putExtra(ACTION_WEB_VIEW, repositoryUrl)
+    private fun setupButtonClickListener(item: HomeRepositoryEntity) {
+        view.btn_github_webView.setOnClickListener {
+            if (item.isPageLinkNotNull()) {
+                Logger.i("button clicked!! go to the webView: ${item.repositoryPageLink}")
+                view.context.startActivity(
+                    Intent(view.context, RepositoryPageActivity::class.java).apply {
+                        putExtra(ACTION_WEB_VIEW, item.repositoryPageLink)
                     })
-                }
-                Logger.i("button clicked!! repositoryUrl it`s null. url: $repositoryUrl")
+            } else {
+                Logger.i("button clicked!! repositoryUrl it`s null. url: ${item.repositoryPageLink}")
                 this.alertUserFromUnavailableUrl()
+            }
         }
     }
 

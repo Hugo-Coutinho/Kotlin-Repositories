@@ -11,8 +11,10 @@ import com.example.kotlinrepositories.core.view.ErrorFragment
 import com.example.kotlinrepositories.core.view.LoadingFragment
 import com.example.kotlinrepositories.home.domain.entity.HomeRepositoryEntity
 import com.example.kotlinrepositories.pullRequestPage.domain.useCase.PullRequestUseCase
+import com.example.kotlinrepositories.pullRequestPage.presentation.view.PullEmptyFragment
 import com.example.kotlinrepositories.pullRequestPage.presentation.view.PullRequestListFragment
 import com.example.kotlinrepositories.pullRequestPage.presentation.viewModel.PullRequestViewModel
+import com.example.kotlinrepositories.pullRequestPage.presentation.viewModel.state.PREmptyState
 import com.example.kotlinrepositories.pullRequestPage.presentation.viewModel.state.PRErrorState
 import com.example.kotlinrepositories.pullRequestPage.presentation.viewModel.state.PRSuccessState
 import org.koin.android.ext.android.inject
@@ -27,11 +29,24 @@ class PullActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pull_request)
+        this.preparingActionBar()
         this.displayLoadingState()
         this.bindSelectedRepository()
         this.viewModelInit()
         this.observePRState()
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
+    }
+
+    private fun preparingActionBar() {
+        val actionbar = supportActionBar
+        actionbar!!.title = getString(R.string.title_activity_pull_request)
+        actionbar.setDisplayHomeAsUpEnabled(true)
+    }
+
 
     private fun displayLoadingState() {
         this.fragmentManager.add(this, R.id.pr_fragment_container, LoadingFragment())
@@ -47,10 +62,16 @@ class PullActivity: AppCompatActivity() {
 
     private fun observePRState() {
         this.viewModel.currentState.observe(this, Observer {
-            if (it is PRSuccessState) {
-                fragmentManager.replace(this, R.id.pr_fragment_container, PullRequestListFragment(this.viewModel, it.items))
-            } else if (it is PRErrorState) {
-                fragmentManager.replace(this, R.id.pr_fragment_container, ErrorFragment(it.message))
+            when (it) {
+                is PRSuccessState -> {
+                    fragmentManager.replace(this, R.id.pr_fragment_container, PullRequestListFragment(this.viewModel, it.items))
+                }
+                is PRErrorState -> {
+                    fragmentManager.replace(this, R.id.pr_fragment_container, ErrorFragment(it.message))
+                }
+                is PREmptyState -> {
+                    fragmentManager.replace(this, R.id.pr_fragment_container, PullEmptyFragment())
+                }
             }
         })
     }

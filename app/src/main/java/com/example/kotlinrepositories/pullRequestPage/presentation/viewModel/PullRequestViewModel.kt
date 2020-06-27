@@ -5,12 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.kotlinrepositories.core.util.constant.Constant
 import com.example.kotlinrepositories.pullRequestPage.domain.entity.PullEntity
-import com.example.kotlinrepositories.pullRequestPage.domain.entity.PullEntityElement
 import com.example.kotlinrepositories.pullRequestPage.domain.useCase.PullRequestUseCase
-import com.example.kotlinrepositories.pullRequestPage.presentation.viewModel.state.PRErrorState
-import com.example.kotlinrepositories.pullRequestPage.presentation.viewModel.state.PRLoadingState
-import com.example.kotlinrepositories.pullRequestPage.presentation.viewModel.state.PRSuccessState
-import com.example.kotlinrepositories.pullRequestPage.presentation.viewModel.state.PullRequestState
+import com.example.kotlinrepositories.pullRequestPage.presentation.viewModel.state.*
 import com.orhanobut.logger.Logger
 import io.reactivex.rxjava3.schedulers.Schedulers
 
@@ -29,13 +25,21 @@ class PullRequestViewModel(private val useCase: PullRequestUseCase, private val 
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.single())
             .subscribe({
-                Logger.i("success parse for entity with ${it.count()} pulls")
-                this.currentState.postValue(PRSuccessState(it))
-
+                this.updateState(it)
             }, {
                 Logger.wtf("request fails ${it.localizedMessage}")
                 this.currentState.postValue(PRErrorState(Constant.HomeErrorMessage))
             })
+    }
+
+    private fun updateState(items: PullEntity) {
+        if (items.isEmpty()) {
+            Logger.i("This repository has no pull requests")
+            this.currentState.postValue(PREmptyState())
+        } else {
+            Logger.i("success parse for entity with ${items.count()} pulls")
+            this.currentState.postValue(PRSuccessState(items))
+        }
     }
 
     class ViewModelFactory(private var useCase: PullRequestUseCase, private val userName: String, private val repositoryName: String): ViewModelProvider.Factory {

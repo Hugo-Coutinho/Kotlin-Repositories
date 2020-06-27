@@ -22,7 +22,6 @@ class RepositoryPageActivity: AppCompatActivity() {
         val actionbar = supportActionBar
         actionbar!!.title = getString(R.string.title_activity_repository_page)
         actionbar.setDisplayHomeAsUpEnabled(true)
-        actionbar.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun setupWebViewByUrl(url: String): WebView {

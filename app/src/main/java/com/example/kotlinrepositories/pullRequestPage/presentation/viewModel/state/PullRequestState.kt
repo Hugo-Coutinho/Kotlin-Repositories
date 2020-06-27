@@ -9,3 +9,5 @@ class PRSuccessState(val items: PullEntity): PullRequestState()
 class PRErrorState(val message: String): PullRequestState()
 
 class PRLoadingState: PullRequestState()
+
+class PREmptyState: PullRequestState()

@@ -12,4 +12,8 @@ open class HomeRepositoryEntity(
     val repositoryPageLink: String? = null,
     val repositoryStarsTotal: Long? = null,
     val forksTotal: Long? = null
-): Parcelable
+): Parcelable {
+    fun isPageLinkNotNull(): Boolean {
+        return repositoryPageLink != null
+    }
+}
