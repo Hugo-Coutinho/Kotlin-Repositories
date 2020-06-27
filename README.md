@@ -48,6 +48,51 @@ Email-me: hugocoutinho2011@gmail.com
 
 Connect with me at [LinkedIn](https://www.linkedin.com/in/hugo-coutinho-aaa3b0114/).
 
+## File structure
+
+Clean architecture was used.
+[put image here]
+
+## ViewModel Architecture Components
+
+I wanted something to manage the state of my app. Working with ViewModel/fragments, I can separate the state of my app with fragment and managing using ViewModel/LiveData.
+
+**With liveData i can holder the current state of the app, and later update it.**
+```kotlin
+class HomeViewModel(private val useCase: HomeUseCase): ViewModel()
+var currentState: MutableLiveData<HomeState> = MutableLiveData()
+```
+
+**Using rxJava, i subscribe it the repositories and upate the app current state.**
+```kotlin
+    private fun didInitGetKotlinRepositories() {
+        Logger.i("requesting repositories by page 1")
+        useCase.getKotlinRepositories(1)
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.single())
+            .subscribe({
+                Logger.i("success parse for entity with ${it.count()} repositories")
+                this.currentState.postValue(HomeSuccessState(it))
+            }, {
+                Logger.wtf("request fails ${it.localizedMessage}")
+                this.currentState.postValue(HomeErrorState(Constant.HomeErrorMessage))
+            })
+    }
+```
+
+**In my activity, i observe the state and replace the fragment for the next.**
+```kotlin
+    private fun observeHomeState() {
+        this.viewModel.currentState.observe(this, Observer {
+            if (it is HomeSuccessState) {
+                fragmentManager.replace(this, R.id.home_fragment_container, HomeListingRepositoriesFragment(this.viewModel, it.items))
+            } else if (it is HomeErrorState) {
+                fragmentManager.replace(this, R.id.home_fragment_container, ErrorFragment(it.message))
+            }
+        })
+    }
+```
+
 ## Built With
 
 - [Mockito](https://site.mockito.org) - Mocking framework that tastes really good. It lets you write beautiful tests with a clean & simple API.
