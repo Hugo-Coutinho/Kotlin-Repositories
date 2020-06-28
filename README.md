@@ -97,6 +97,7 @@ var currentState: MutableLiveData<HomeState> = MutableLiveData()
     }
 ```
 
+
 ## Test driven development
 It was the first time I make an app with TDD practice, I already have used testing unit before, but now I see the life is better with it.
 
@@ -177,6 +178,28 @@ In this test, I had test the total items asserts.
     }
 ```
     
+## UI Testing (Espresso)
+Basic test with fragment checking the assert of the error message and animation appearance.
+```kotlin
+@RunWith(AndroidJUnit4ClassRunner::class)
+class ErrorFragmentTest {
+
+    @Before
+    fun setup() {
+        launchFragmentInContainer { ErrorFragment("Something Wrong!!") }
+    }
+
+    @Test
+    fun onCreateView_ShouldAssertErrorMessage() {
+        onView(withId(R.id.tv_error_message)).check(matches(withText("Something Wrong!!")))
+    }
+
+    @Test
+    fun onCreateView_ShouldAssertErrorAnimationIsDisplayed() {
+        onView(withId(R.id.error_animation_view)).check(matches(isDisplayed()))
+    }
+}
+```
 
 ## Built With
 
