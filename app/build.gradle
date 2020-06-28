@@ -32,6 +32,16 @@ android {
     androidExtensions {
         experimental = true
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
 }
 
 dependencies {
@@ -63,4 +73,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     compileOnly 'com.google.android.wearable:wearable:2.7.0'
+    debugImplementation 'androidx.fragment:fragment-testing:1.2.4'
+    implementation 'androidx.fragment:fragment:1.1.0-alpha01'
 }

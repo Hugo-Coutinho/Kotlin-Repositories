@@ -34,7 +34,7 @@ class HomeUseCaseTests {
     fun getKotlinRepositories_ShouldAssertEntity() {
 
         // GIVEN
-        var resultEntityCount: Int = 0
+        var resultEntityCount = 0
         val mockItems = MockHomeRepository.getMockKotlinRepositories()
         Mockito.`when`(this.repository.getKotlinRepositoriesFromApi(1)).thenReturn(mockItems)
 

@@ -7,7 +7,7 @@
     android:gravity="center">
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animation_view"
+        android:id="@+id/error_animation_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:lottie_autoPlay="true"
@@ -18,7 +18,7 @@
         android:id="@+id/tv_error_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Something Wrong!!"
+        android:text="@string/error_message"
         android:textSize="20dp"
         android:fontFamily="sans-serif-black"/>
 </LinearLayout>
