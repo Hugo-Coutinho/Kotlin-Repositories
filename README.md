@@ -48,10 +48,14 @@ Email-me: hugocoutinho2011@gmail.com
 
 Connect with me at [LinkedIn](https://www.linkedin.com/in/hugo-coutinho-aaa3b0114/).
 
-## File structure
+## Structure folder
 
 Clean architecture was used.
-[put image here]
+
+<div align="center">
+<img src="https://github.com/Hugo-Coutinho/Kotlin-Repositories/blob/master/app/src/main/java/com/example/kotlinrepositories/core/readmeFiles/file_structure.png?raw=true"/>
+</div>
+
 
 ## ViewModel Architecture Components
 
@@ -92,6 +96,87 @@ var currentState: MutableLiveData<HomeState> = MutableLiveData()
         })
     }
 ```
+
+## Test driven development
+It was the first time I make an app with TDD practice, I already have used testing unit before, but now I see the life is better with it.
+
+- *I am gonna show it, how I did the unit testing using homeRepository as an example:*
+
+As a anyone knows, unit testing does not have layer or any coupled information. with repository layer I will make request from GitHubApi, therefore, I created the MockRemoteDataSource for simulating the client requests.
+
+```kotlin
+object MockHomeRemoteDataSource {
+
+    @Mock
+    private lateinit var client: IGithubApi
+
+    fun getKotlinRepositoriesRemoteDataSource(): KotlinRepositoriesRemoteDataSource {
+        this.client =  Mockito.mock(provideRetrofit().create(IGithubApi::class.java)::class.java)
+        return KotlinRepositoriesRemoteDataSourceImpl(this.client)
+    }
+
+    fun getMockKotlinRepositories(): Observable<ArrayList<KotlinRepositoriesModel>> {
+        return Observable.just(ArrayList<KotlinRepositoriesModel>(listOf(this.mockModel())))
+    }
+
+    fun didClientResponse(): Observable<Item> {
+        return Observable.just(this.mockItem())
+    }
+
+    private fun mockItem(): Item {
+        val owner = Owner("android","https://avatars3.githubusercontent.com/u/32689599?v=4")
+        val model = KotlinRepositoriesModel("architecture-samples", false, owner, "A collection of samples to discuss and showcase different architectural tools and patterns for Android apps.","https://github.com/google/flexbox-webview_repository_page",36642,10175)
+        return Item(ArrayList<KotlinRepositoriesModel>(listOf(model)))
+    }
+
+    private fun mockModel(): KotlinRepositoriesModel {
+        val owner = Owner("android","https://avatars3.githubusercontent.com/u/32689599?v=4")
+        return KotlinRepositoriesModel("architecture-samples", false, owner, "A collection of samples to discuss and showcase different architectural tools and patterns for Android apps.","https://github.com/google/flexbox-webview_repository_page",36642,10175)
+    }
+}
+```
+
+Using JUnit for the tests, I need it instantiate the repository passing the mock data source.
+```kotlin
+@RunWith(MockitoJUnitRunner::class)
+class HomeRepositoryTests {
+
+    @Mock
+    private lateinit var homeRepository: HomeRepository
+    @Mock
+    private lateinit var dataSource: KotlinRepositoriesRemoteDataSource
+
+    @Before
+    fun setUp() {
+        this.dataSource =  Mockito.mock(MockHomeRemoteDataSource.getKotlinRepositoriesRemoteDataSource()::class.java)
+        this.homeRepository = HomeRepositoryImpl(this.dataSource)
+    }
+
+```
+
+In this test, I had test the total items asserts.
+```kotlin
+@Test
+    fun getKotlinRepositoriesFromApi_ShouldAssertOneItemCount() {
+
+        // GIVEN
+        var resultEntityCount: Int = 0
+        val fakeItems = MockHomeRemoteDataSource.getMockKotlinRepositories()
+        `when`(this.dataSource.getKotlinRepositories(1)).thenReturn(fakeItems)
+
+        // WHEN
+        this.homeRepository.getKotlinRepositoriesFromApi(1)
+            .subscribe({
+                resultEntityCount = it.count()
+            }, {
+                Assert.fail()
+            })
+
+        // THEN
+        Assert.assertEquals(1, resultEntityCount)
+    }
+```
+    
 
 ## Built With
 
