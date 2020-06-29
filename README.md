@@ -86,15 +86,20 @@ var currentState: MutableLiveData<HomeState> = MutableLiveData()
 
 **In my activity, i observe the state and replace the fragment for the next.**
 ```kotlin
-    private fun observeHomeState() {
+        private fun observeHomeState() {
         this.viewModel.currentState.observe(this, Observer {
-            if (it is HomeSuccessState) {
-                fragmentManager.replace(this, R.id.home_fragment_container, HomeListingRepositoriesFragment(this.viewModel, it.items))
-            } else if (it is HomeErrorState) {
-                fragmentManager.replace(this, R.id.home_fragment_container, ErrorFragment(it.message))
+            when (it) {
+                is HomeSuccessState -> {
+                    fragmentManager.replace(this, R.id.home_fragment_container, HomeListingRepositoriesFragment(this.viewModel, it.items))
+                }
+
+                is HomeErrorState -> {
+                    fragmentManager.replace(this, R.id.home_fragment_container, ErrorFragment(it.message))
+                }
             }
         })
     }
+
 ```
 
 
