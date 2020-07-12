@@ -2,6 +2,7 @@ package com.example.kotlinrepositories.home.domain.repository
 
 import com.example.kotlinrepositories.home.data.MockHomeRemoteDataSource
 import com.example.kotlinrepositories.home.data.remote.KotlinRepositoriesRemoteDataSource
+import com.example.kotlinrepositories.home.data.remote.SortType
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
@@ -37,10 +38,10 @@ class HomeRepositoryTests {
         // GIVEN
         var resultEntityCount: Int = 0
         val mockItems = MockHomeRemoteDataSource.getMockKotlinRepositories()
-        `when`(this.dataSource.getKotlinRepositories(1)).thenReturn(mockItems)
+        `when`(this.dataSource.getKotlinRepositories(1, SortType.STAR)).thenReturn(mockItems)
 
         // WHEN
-        this.homeRepository.getKotlinRepositoriesFromApi(1)
+        this.homeRepository.getKotlinRepositoriesFromApi(1, SortType.STAR)
             .subscribe({
                 resultEntityCount = it.count()
             }, {

@@ -6,5 +6,7 @@
     <string name="alert_unavailable_url_body">this web page is unavailable</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="empty_message">This repository has no pull requests</string>
-    <string name="error_message">Something Wrong!!</string>
+    <string name="sort">Sort</string>
+    <string name="itemsResultsCount">replace Results</string>
+    <string name="error_message">Something went wrong!!</string>
 </resources>

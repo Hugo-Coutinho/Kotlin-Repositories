@@ -2,6 +2,7 @@ package com.example.kotlinrepositories.home.data
 
 import com.example.kotlinrepositories.core.di.provideRetrofit
 import com.example.kotlinrepositories.home.data.model.Item
+import com.example.kotlinrepositories.home.data.model.KotlinRepositoriesElement
 import com.example.kotlinrepositories.home.data.model.KotlinRepositoriesModel
 import com.example.kotlinrepositories.home.data.model.Owner
 import com.example.kotlinrepositories.home.data.remote.IGithubApi
@@ -21,8 +22,8 @@ object MockHomeRemoteDataSource {
         return KotlinRepositoriesRemoteDataSourceImpl(this.client)
     }
 
-    fun getMockKotlinRepositories(): Observable<ArrayList<KotlinRepositoriesModel>> {
-        return Observable.just(ArrayList<KotlinRepositoriesModel>(listOf(this.mockModel())))
+    fun getMockKotlinRepositories(): Observable<KotlinRepositoriesModel> {
+        return Observable.just(KotlinRepositoriesModel(listOf(this.mockModel())))
     }
 
     fun didClientResponse(): Observable<Item> {
@@ -31,12 +32,12 @@ object MockHomeRemoteDataSource {
 
     private fun mockItem(): Item {
         val owner = Owner("android","https://avatars3.githubusercontent.com/u/32689599?v=4")
-        val model = KotlinRepositoriesModel("architecture-samples", false, owner, "A collection of samples to discuss and showcase different architectural tools and patterns for Android apps.","https://github.com/google/flexbox-webview_repository_page",36642,10175)
-        return Item(ArrayList<KotlinRepositoriesModel>(listOf(model)))
+        val model = KotlinRepositoriesElement("architecture-samples", false, owner, "A collection of samples to discuss and showcase different architectural tools and patterns for Android apps.","https://github.com/google/flexbox-webview_repository_page",36642,10175)
+        return Item(KotlinRepositoriesModel(listOf(model)))
     }
 
-    private fun mockModel(): KotlinRepositoriesModel {
+    private fun mockModel(): KotlinRepositoriesElement {
         val owner = Owner("android","https://avatars3.githubusercontent.com/u/32689599?v=4")
-        return KotlinRepositoriesModel("architecture-samples", false, owner, "A collection of samples to discuss and showcase different architectural tools and patterns for Android apps.","https://github.com/google/flexbox-webview_repository_page",36642,10175)
+        return KotlinRepositoriesElement("architecture-samples", false, owner, "A collection of samples to discuss and showcase different architectural tools and patterns for Android apps.","https://github.com/google/flexbox-webview_repository_page",36642,10175)
     }
 }

@@ -17,7 +17,7 @@ import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.fragment_home_listing_repositories.*
 
 
-class HomeListingRepositoriesFragment(private val vm: HomeViewModel, private val items: ArrayList<HomeRepositoryEntity>): Fragment() {
+class HomeListingRepositoriesFragment(private val vm: HomeViewModel, private var items: HomeRepositoryEntity): Fragment() {
 
     private var binding: FragmentHomeListingRepositoriesBinding? = null
     private lateinit var linearLayoutManager: LinearLayoutManager
@@ -51,8 +51,8 @@ class HomeListingRepositoriesFragment(private val vm: HomeViewModel, private val
                 val total = adapter.itemCount
 
                 if(!isLoading) {
-                    if ((visibleItemCount + pastVisibleItem) > total) {
-                        Logger.d("we have visible items: $visibleItemCount and pastaVisibleItems: $pastVisibleItem bigger than total: $total")
+                    if ((visibleItemCount + pastVisibleItem) == total) {
+                        Logger.d("we have visible items: $visibleItemCount and pastaVisibleItems: $pastVisibleItem equal to total: $total")
                         getPageWithEndlessScroll()
                     }
                 }
@@ -80,12 +80,12 @@ class HomeListingRepositoriesFragment(private val vm: HomeViewModel, private val
     }
 
     private fun fetchRepositoriesByNextPage(page: Int) {
-        this.vm.fetchKotlinRepositoriesByPage(page)
+        this.vm.fetchRepositoriesNextPageInfiniteScroll(page)
     }
 
     private fun observingItems() {
-        this.vm.vmItems.observe(viewLifecycleOwner, Observer {
-            this.items.addAll(it)
+        this.vm.viewModelData.vmItems.observe(viewLifecycleOwner, Observer {
+            this.items = it
             Logger.i("new items updated, now with ${this.items.count()} items")
             if (::adapter.isInitialized) {
                 Logger.i("adapter initializaded, updating the ui")

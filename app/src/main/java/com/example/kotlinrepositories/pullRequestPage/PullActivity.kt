@@ -9,7 +9,7 @@ import com.example.kotlinrepositories.core.util.constant.Constant.Companion.PULL
 import com.example.kotlinrepositories.core.util.fragmentManager.FragmentNavigationManager
 import com.example.kotlinrepositories.core.view.ErrorFragment
 import com.example.kotlinrepositories.core.view.LoadingFragment
-import com.example.kotlinrepositories.home.domain.entity.HomeRepositoryEntity
+import com.example.kotlinrepositories.home.domain.entity.HomeRepositoryEntityElement
 import com.example.kotlinrepositories.pullRequestPage.domain.useCase.PullRequestUseCase
 import com.example.kotlinrepositories.pullRequestPage.presentation.view.PullEmptyFragment
 import com.example.kotlinrepositories.pullRequestPage.presentation.view.PullRequestListFragment
@@ -24,7 +24,7 @@ class PullActivity: AppCompatActivity() {
     private val fragmentManager: FragmentNavigationManager by inject()
     private val useCase: PullRequestUseCase by inject()
     private lateinit var viewModel: PullRequestViewModel
-    private lateinit var currentRepositorySelected: HomeRepositoryEntity
+    private lateinit var currentRepositorySelected: HomeRepositoryEntityElement
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

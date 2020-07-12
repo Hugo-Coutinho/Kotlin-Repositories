@@ -1,10 +1,13 @@
 package com.example.kotlinrepositories.home.domain.entity
 
 import android.os.Parcelable
+import com.example.kotlinrepositories.home.data.model.KotlinRepositoriesElement
 import kotlinx.android.parcel.Parcelize
 
+typealias HomeRepositoryEntity = ArrayList<HomeRepositoryEntityElement>
+
 @Parcelize
-open class HomeRepositoryEntity(
+open class HomeRepositoryEntityElement(
     val repositoryName: String,
     val userName: String,
     val repoDescription: String? = null,
@@ -15,5 +18,11 @@ open class HomeRepositoryEntity(
 ): Parcelable {
     fun isPageLinkNotNull(): Boolean {
         return repositoryPageLink != null
+    }
+
+    companion object {
+        fun toEntity(model: KotlinRepositoriesElement): HomeRepositoryEntityElement {
+            return HomeRepositoryEntityElement(model.name, model.owner.login, model.description, model.owner.userImageUrl, model.repositoryPage, model.starCount, model.forkCount)
+        }
     }
 }

@@ -15,10 +15,6 @@ class PullRequestRepositoryImpl(private val remoteDataSource: PullRequestRemoteD
     override fun getPullsFromApi(user: String, repo: String): Observable<PullEntity> {
         Logger.w("parsing model to entity from data source")
         return remoteDataSource.getPullRequest(user, repo)
-            .flatMap { items -> Observable.just(ArrayList(items.map { model -> this.parseModelToEntity(model) })) }
-    }
-
-    private fun parseModelToEntity(model: PullElement): PullEntityElement {
-        return PullEntityElement(model.user.login, model.title, model.body, model.user.avatar_url)
+            .flatMap { items -> Observable.just(ArrayList(items.map { model -> PullEntityElement.toEntity(model) })) }
     }
 }

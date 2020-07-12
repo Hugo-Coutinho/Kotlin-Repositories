@@ -1,5 +1,6 @@
 package com.example.kotlinrepositories.home.domain.useCase
 
+import com.example.kotlinrepositories.home.data.remote.SortType
 import com.example.kotlinrepositories.home.domain.repository.HomeRepository
 import com.example.kotlinrepositories.home.domain.repository.MockHomeRepository
 import org.junit.After
@@ -36,10 +37,10 @@ class HomeUseCaseTests {
         // GIVEN
         var resultEntityCount = 0
         val mockItems = MockHomeRepository.getMockKotlinRepositories()
-        Mockito.`when`(this.repository.getKotlinRepositoriesFromApi(1)).thenReturn(mockItems)
+        Mockito.`when`(this.repository.getKotlinRepositoriesFromApi(1, SortType.STAR)).thenReturn(mockItems)
 
         // WHEN
-        this.useCase.getKotlinRepositories(1)
+        this.useCase.getKotlinRepositories(1, SortType.STAR)
             .subscribe({
                 resultEntityCount = it.count()
             }, {

@@ -2,6 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/view_home_sort_header"
+        layout="@layout/home_header_layout"/>
+
+    <include
+        android:id="@+id/view_home_sort"
+        layout="@layout/home_sort_layout"/>
+
     <FrameLayout
         android:id="@+id/home_fragment_container"
         android:layout_width="match_parent"

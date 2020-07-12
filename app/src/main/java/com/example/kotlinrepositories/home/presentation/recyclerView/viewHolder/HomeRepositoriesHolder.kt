@@ -8,7 +8,7 @@ import com.example.kotlinrepositories.R
 import com.example.kotlinrepositories.core.util.constant.Constant.Companion.ACTION_WEB_VIEW
 import com.example.kotlinrepositories.core.util.constant.Constant.Companion.PULL_ITEM
 import com.example.kotlinrepositories.repositoryPage.RepositoryPageActivity
-import com.example.kotlinrepositories.home.domain.entity.HomeRepositoryEntity
+import com.example.kotlinrepositories.home.domain.entity.HomeRepositoryEntityElement
 import com.example.kotlinrepositories.pullRequestPage.PullActivity
 import com.orhanobut.logger.Logger
 import com.squareup.picasso.Callback
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.home_repository_item.view.*
 
 class HomeRepositoriesHolder(v: View): RecyclerView.ViewHolder(v), View.OnClickListener {
     private var view: View = v
-    private lateinit var item: HomeRepositoryEntity
+    private lateinit var item: HomeRepositoryEntityElement
 
     init {
         v.setOnClickListener(this)
@@ -31,7 +31,7 @@ class HomeRepositoriesHolder(v: View): RecyclerView.ViewHolder(v), View.OnClickL
         })
     }
 
-    fun bindRepository(item: HomeRepositoryEntity) {
+    fun bindRepository(item: HomeRepositoryEntityElement) {
         this.item = item
         this.downloadingUserAvatar(item.avatar)
         this.setupButtonClickListener(item)
@@ -57,7 +57,7 @@ class HomeRepositoriesHolder(v: View): RecyclerView.ViewHolder(v), View.OnClickL
             })
     }
 
-    private fun setupButtonClickListener(item: HomeRepositoryEntity) {
+    private fun setupButtonClickListener(item: HomeRepositoryEntityElement) {
         view.btn_github_webView.setOnClickListener {
             if (item.isPageLinkNotNull()) {
                 Logger.i("button clicked!! go to the webView: ${item.repositoryPageLink}")

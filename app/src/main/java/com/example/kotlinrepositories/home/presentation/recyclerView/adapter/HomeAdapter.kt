@@ -7,7 +7,7 @@ import com.example.kotlinrepositories.core.util.extension.inflate
 import com.example.kotlinrepositories.home.domain.entity.HomeRepositoryEntity
 import com.example.kotlinrepositories.home.presentation.recyclerView.viewHolder.HomeRepositoriesHolder
 
-class RecyclerAdapter(private val items: List<HomeRepositoryEntity>): RecyclerView.Adapter<HomeRepositoriesHolder>()  {
+class RecyclerAdapter(private val items: HomeRepositoryEntity): RecyclerView.Adapter<HomeRepositoriesHolder>()  {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeRepositoriesHolder {
         val inflatedView = parent.inflate(R.layout.home_repository_item, false)
