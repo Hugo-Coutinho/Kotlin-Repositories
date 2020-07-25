@@ -12,6 +12,7 @@ open class HomeRepositoryEntityElement(
     val userName: String,
     val repoDescription: String? = null,
     val avatar: String? = null,
+    val isPrivateRepository: Boolean = false,
     val repositoryPageLink: String? = null,
     val repositoryStarsTotal: Long? = null,
     val forksTotal: Long? = null
@@ -22,7 +23,7 @@ open class HomeRepositoryEntityElement(
 
     companion object {
         fun toEntity(model: KotlinRepositoriesElement): HomeRepositoryEntityElement {
-            return HomeRepositoryEntityElement(model.name, model.owner.login, model.description, model.owner.userImageUrl, model.repositoryPage, model.starCount, model.forkCount)
+            return HomeRepositoryEntityElement(model.name, model.owner.login, model.description, model.owner.userImageUrl, model.isPrivate, model.repositoryPage, model.starCount, model.forkCount)
         }
     }
 }

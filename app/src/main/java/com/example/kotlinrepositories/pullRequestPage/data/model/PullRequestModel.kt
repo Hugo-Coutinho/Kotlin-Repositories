@@ -10,7 +10,9 @@ data class PullElement (
     @SerializedName("user")
     val user: User,
     @SerializedName("body")
-    val description: String
+    val description: String,
+    @SerializedName("state")
+    val state: String
 )
 
 data class User (

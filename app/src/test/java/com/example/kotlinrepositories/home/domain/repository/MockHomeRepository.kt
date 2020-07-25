@@ -25,6 +25,6 @@ object MockHomeRepository {
 
     private fun mockEntity(): HomeRepositoryEntityElement {
         val owner = Owner("android","https://avatars3.githubusercontent.com/u/32689599?v=4")
-        return HomeRepositoryEntityElement("architecture-samples", owner.login, "A collection of samples to discuss and showcase different architectural tools and patterns for Android apps.","https://github.com/google/flexbox-webview_repository_page","" , 36642,10175)
+        return HomeRepositoryEntityElement("architecture-samples", owner.login, "A collection of samples to discuss and showcase different architectural tools and patterns for Android apps.",owner.userImageUrl,false , "https://github.com/google/flexbox-webview_repository_page",10175)
     }
 }

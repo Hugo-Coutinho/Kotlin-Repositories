@@ -1,18 +1,14 @@
 package com.example.kotlinrepositories.home.presentation
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.kotlinrepositories.R
 import com.example.kotlinrepositories.core.util.fragmentManager.FragmentNavigationManager
+import com.example.kotlinrepositories.core.util.layout.ColorEnum
+import com.example.kotlinrepositories.core.util.layout.LayoutHelper
 import com.example.kotlinrepositories.core.view.ErrorFragment
 import com.example.kotlinrepositories.core.view.LoadingFragment
-import com.example.kotlinrepositories.home.domain.useCase.HomeUseCase
 import com.example.kotlinrepositories.home.presentation.view.HomeListingRepositoriesFragment
 import com.example.kotlinrepositories.home.presentation.view.HomeSortView
 import com.example.kotlinrepositories.home.presentation.view.IHomeSort
@@ -28,8 +24,7 @@ import org.koin.android.ext.android.inject
 class HomeActivity: AppCompatActivity() {
 
     private val fragmentManager: FragmentNavigationManager by inject()
-    private val useCase: HomeUseCase by inject()
-    private lateinit var viewModel: HomeViewModel
+    private val viewModel: HomeViewModel by inject()
     private var homeSortView: IHomeSort? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +35,6 @@ class HomeActivity: AppCompatActivity() {
     }
 
     private fun homeActivityInitialization() {
-        this.viewModel = ViewModelProvider(this, HomeViewModel.ViewModelFactory(this.useCase)).get(HomeViewModel::class.java)
         this.homeSortView = HomeSortView(view_home_sort, view_home_sort_header.iv_home_header_arrow, this.viewModel)
         this.listenerTotalItemsToUpdateHeaderResults()
         this.setupHeaderBottomLine()
@@ -78,13 +72,7 @@ class HomeActivity: AppCompatActivity() {
     }
 
     private fun setupHeaderBottomLine() {
-        val bottomColor = ColorDrawable(Color.BLACK)
-        val colorDefault = ColorDrawable(Color.WHITE)
-        val layers = arrayOf<Drawable>(bottomColor, colorDefault)
-        val layerDrawable = LayerDrawable(layers)
-        layerDrawable.setLayerInset(0, 0, 0, 0, 0)
-        layerDrawable.setLayerInset(1, 0, 0, 0, 5)
-        view_home_sort_header.background = layerDrawable
+        view_home_sort_header.background = LayoutHelper.getBottomLineSetup(ColorEnum.BLACK)
     }
 
     private fun headerResultsCountInitialization(totalItems: Int) {

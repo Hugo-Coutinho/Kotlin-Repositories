@@ -102,6 +102,6 @@ class HomeListingRepositoriesFragment(private val vm: HomeViewModel, private var
 
     private fun setHiddenLoading() {
         isLoading = false
-        home_progressBar.visibility = View.INVISIBLE
+        home_progressBar.visibility = View.GONE
     }
 }

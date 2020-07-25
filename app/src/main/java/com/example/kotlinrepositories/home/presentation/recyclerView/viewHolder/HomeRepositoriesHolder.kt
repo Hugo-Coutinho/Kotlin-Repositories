@@ -40,6 +40,7 @@ class HomeRepositoriesHolder(v: View): RecyclerView.ViewHolder(v), View.OnClickL
         view.tv_repository_description.text = item.repoDescription
         view.tv_fork_count.text = "${item.forksTotal}"
         view.tv_star_count.text = "${item.repositoryStarsTotal}"
+        this.bindPrivateImage(item.isPrivateRepository)
     }
 
     private fun downloadingUserAvatar(imageUrl: String?) {
@@ -77,5 +78,13 @@ class HomeRepositoriesHolder(v: View): RecyclerView.ViewHolder(v), View.OnClickL
             .setTitle(view.context.getString(R.string.alert_unavailable_url_title))
             .setMessage(view.context.getString(R.string.alert_unavailable_url_body))
             .show()
+    }
+
+    private fun bindPrivateImage(isPrivate: Boolean) {
+        if (isPrivate) {
+            view.iv_private.setImageResource(R.drawable.lock)
+            return
+        }
+        view.iv_private.setImageResource(R.drawable.unlock)
     }
 }

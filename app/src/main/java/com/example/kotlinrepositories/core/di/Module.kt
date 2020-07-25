@@ -10,6 +10,7 @@ import com.example.kotlinrepositories.home.domain.repository.HomeRepository
 import com.example.kotlinrepositories.home.domain.repository.HomeRepositoryImpl
 import com.example.kotlinrepositories.home.domain.useCase.HomeUseCase
 import com.example.kotlinrepositories.home.domain.useCase.HomeUseCaseImpl
+import com.example.kotlinrepositories.home.presentation.viewModel.HomeViewModel
 import com.example.kotlinrepositories.pullRequestPage.data.remote.IGithubPullsApi
 import com.example.kotlinrepositories.pullRequestPage.data.remote.PullRequestRemoteDataSource
 import com.example.kotlinrepositories.pullRequestPage.data.remote.PullRequestRemoteDataSourceImpl
@@ -17,13 +18,14 @@ import com.example.kotlinrepositories.pullRequestPage.domain.repository.PullRequ
 import com.example.kotlinrepositories.pullRequestPage.domain.repository.PullRequestRepositoryImpl
 import com.example.kotlinrepositories.pullRequestPage.domain.useCase.PullRequestUseCase
 import com.example.kotlinrepositories.pullRequestPage.domain.useCase.PullRequestUseCaseImpl
-import com.google.gson.GsonBuilder
+import com.example.kotlinrepositories.pullRequestPage.presentation.viewModel.PullRequestViewModel
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import org.koin.androidx.viewmodel.dsl.viewModel
 
 fun provideRetrofit(): Retrofit {
     val logging = HttpLoggingInterceptor()
@@ -61,7 +63,10 @@ val useCaseModule = module {
 
 val presentationModule = module {
     factory<FragmentNavigationManager> { FragmentNavigationManagerImpl() }
+    viewModel { HomeViewModel(useCase = get()) }
+    viewModel { PullRequestViewModel(useCase = get()) }
 }
+
 
 
 
