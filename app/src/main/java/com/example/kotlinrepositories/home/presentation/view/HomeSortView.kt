@@ -82,7 +82,7 @@ class HomeSortView(layoutInflated: View, arrowView: View, private val vm: HomeVi
     }
 
     private fun radioButtonChangeListener() {
-        view.rg_home_sort.setOnCheckedChangeListener { group, checkedId ->
+        view.rg_home_sort.setOnCheckedChangeListener { _, checkedId ->
             if (checkedId == view.rb_home_sort_stars.id) {
                 Logger.i("sort by star selected")
                 this.vm.fetchKotlinRepositoriesByPageAndSort(1, SortType.STAR)
